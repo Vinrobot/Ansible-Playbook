@@ -1,0 +1,20 @@
+---
+- hosts: k8s
+  become: true
+
+  vars_prompt:
+    - name: freeipaclient_domain
+      prompt: "IPA Domain"
+      default: vr.local
+    - name: freeipaclient_server
+      prompt: "IPA Server"
+      default: ds01.vr.local
+    - name: freeipaclient_enroll_user
+      prompt: "IPA Enroll User"
+      default: admin
+    - name: freeipaclient_enroll_pass
+      prompt: "IPA Enroll Pass"
+      private: true
+
+  roles:
+    - alvaroaleman.freeipa-client

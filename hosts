@@ -1,0 +1,21 @@
+[ipa_ds]
+ds01.vr.local
+
+[k8s_control_plane]
+m01.k8s.vr.local
+m02.k8s.vr.local
+m03.k8s.vr.local
+
+[k8s_worker]
+w01.k8s.vr.local ansible_user=rancher
+w02.k8s.vr.local ansible_user=rancher
+
+[k8s:children]
+k8s_control_plane
+k8s_worker
+
+[docker]
+docker01.vr.local
+
+[docker:children]
+k8s
