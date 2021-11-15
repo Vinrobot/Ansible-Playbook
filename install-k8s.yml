@@ -1,0 +1,60 @@
+---
+- hosts: k8s
+  become: true
+
+  tasks:
+    - meta: end_play
+      when: ansible_pkg_mgr != 'yum'
+
+    - import_tasks: tasks/disable-swap.yml
+    - import_tasks: tasks/disable-selinux.yml
+    - import_tasks: tasks/disable-firewalld.yml
+
+    - name: Enable br_netfilter module
+      modprobe:
+        name: br_netfilter
+        state: present
+
+    - name: Ensure net.bridge.bridge-nf-call-iptables is set to 1
+      sysctl:
+        name: net.bridge.bridge-nf-call-iptables
+        value: '1'
+        state: present
+
+    - name: Ensure net.bridge.bridge-nf-call-ip6tables is set to 1
+      sysctl:
+        name: net.bridge.bridge-nf-call-ip6tables
+        value: '1'
+        state: present
+
+    - name: Add Kubernetes yum repository
+      yum_repository:
+        name: Kubernetes
+        description: Kubernetes
+        baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+        gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+        gpgcheck: true
+
+    - name: Updating yum cache
+      yum: update_cache=true
+
+    - name: Install kubelet
+      yum:
+        name: kubelet
+        state: present
+
+    - name: Install kubeadm
+      yum:
+        name: kubeadm
+        state: present
+
+    - name: Install kubectl
+      yum:
+        name: kubectl
+        state: present
+
+    - name: Start kubelet
+      service:
+        name: kubelet
+        enabled: true
+          state: started
