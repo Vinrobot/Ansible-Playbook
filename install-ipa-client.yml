@@ -1,5 +1,5 @@
 ---
-- hosts: k8s
+- hosts: ipa_clients
   become: true
 
   vars_prompt:
@@ -8,7 +8,7 @@
       default: vr.local
     - name: freeipaclient_server
       prompt: "IPA Server"
-      default: ds01.vr.local
+      default: ipa01.vr.local
     - name: freeipaclient_enroll_user
       prompt: "IPA Enroll User"
       default: admin

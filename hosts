@@ -1,21 +1,24 @@
-[ipa_ds]
-ds01.vr.local
+[ipa_servers]
+ipa01.vr.local
+ipa02.vr.local
 
-[k8s_control_plane]
-m01.k8s.vr.local
-m02.k8s.vr.local
-m03.k8s.vr.local
+[ipa_clients:children]
+rke2
+pgsql
 
-[k8s_worker]
-w01.k8s.vr.local ansible_user=rancher
-w02.k8s.vr.local ansible_user=rancher
+[rke2:children]
+rke2_servers
+rke2_agents
 
-[k8s:children]
-k8s_control_plane
-k8s_worker
+[rke2_servers]
+server1.k8s.local ansible_user=administrator rke2_type=server
+server2.k8s.local ansible_user=administrator rke2_type=server
+server3.k8s.local ansible_user=administrator rke2_type=server
 
-[docker]
-docker01.vr.local
+[rke2_agents]
+agent1.k8s.local ansible_user=administrator rke2_type=agent
+agent2.k8s.local ansible_user=administrator rke2_type=agent
+agent3.k8s.local ansible_user=administrator rke2_type=agent
 
-[docker:children]
-k8s
+[pgsql]
+pgsql1.dbs.local ansible_user=administrator
