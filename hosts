@@ -11,14 +11,14 @@ rke2_servers
 rke2_agents
 
 [rke2_servers]
-server1.k8s.local ansible_user=administrator rke2_type=server
-server2.k8s.local ansible_user=administrator rke2_type=server
-server3.k8s.local ansible_user=administrator rke2_type=server
+server1.k8s.local rke2_type=server
+server2.k8s.local rke2_type=server
+server3.k8s.local rke2_type=server
 
 [rke2_agents]
-agent1.k8s.local ansible_user=administrator rke2_type=agent
-agent2.k8s.local ansible_user=administrator rke2_type=agent
-agent3.k8s.local ansible_user=administrator rke2_type=agent
+agent1.k8s.local rke2_type=agent
+agent2.k8s.local rke2_type=agent
+agent3.k8s.local rke2_type=agent
 
 [pgsql]
-pgsql1.dbs.local ansible_user=administrator
+pgsql1.dbs.local

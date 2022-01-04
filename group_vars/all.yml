@@ -1,0 +1,4 @@
+---
+ansible_user: administrator
+#ansible_password: 1234567890
+#ansible_sudo_pass: 1234567890
