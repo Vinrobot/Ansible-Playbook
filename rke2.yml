@@ -1,0 +1,6 @@
+---
+- hosts: rke2
+  become: yes
+  roles:
+    - rke2
+    - lablabs.rke2

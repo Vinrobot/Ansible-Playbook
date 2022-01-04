@@ -1,0 +1,12 @@
+---
+- include: disable-swap.yml
+
+- include: disable-selinux.yml
+
+- include: disable-firewalld.yml
+
+- name: Create RKE2 symbolic link
+  file:
+    src: /usr/bin/rke2
+    dest: /usr/local/bin/rke2
+    state: link

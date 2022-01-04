@@ -1,0 +1,11 @@
+---
+- name: Disable SELinux
+  command: setenforce 0
+  register: disable_selinux
+  changed_when: disable_selinux.rc == 0
+  failed_when: >
+    (disable_selinux.rc != 0 and disable_selinux.stderr not in 'setenforce: SELinux is disabled')
+
+- name: Disable SELinux on reboot
+  selinux:
+    state: disabled
